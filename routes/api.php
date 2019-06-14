@@ -1,6 +1,6 @@
 <?php
 
-use Illuminate\Http\Request;
+// use Illuminate\Http\Request;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,3 +18,4 @@ use Illuminate\Http\Request;
 // });
 
 Route::post('/login', 'AuthController@login')->name('login');
+Route::get('/users/select_list', 'UserController@user_select_list');
