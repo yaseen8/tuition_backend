@@ -19,3 +19,15 @@
 
 Route::post('/login', 'AuthController@login')->name('login');
 Route::get('/users/select_list', 'UserController@user_select_list');
+
+/////Courses
+
+Route::post('/course', 'CoursesController@store');
+
+//////Study Level Api
+
+Route::get('/study_level', 'StudyLevelController@index');
+Route::post('/study_level', 'StudyLevelController@store');
+Route::put('/study_level/{id}', 'StudyLevelController@update');
+
+
