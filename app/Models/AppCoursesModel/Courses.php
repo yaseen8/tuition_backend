@@ -3,6 +3,7 @@
 namespace App\Models\AppCoursesModel;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Models\AppStudyLevelModel\StudyLevel;
 
 class Courses extends Model
 {
@@ -12,6 +13,6 @@ class Courses extends Model
 
     public function study_level()
     {
-        return $this->belongsTo('App\Models\AppStudyLevelModel\StudyLevel'::class, 'fk_study_level_id');
+        return $this->belongsTo(StudyLevel::class, 'fk_study_level_id');
     }
 }

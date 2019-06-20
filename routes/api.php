@@ -22,12 +22,20 @@ Route::get('/users/select_list', 'UserController@user_select_list');
 
 /////Courses
 
-Route::post('/course', 'CoursesController@store');
+Route::get('/courses', 'CoursesController@index');
+Route::post('/courses', 'CoursesController@store');
+Route::put('/courses/{id}', 'CoursesController@update');
+Route::get('/course/get_by_study_level/{id}', 'CoursesController@get_by_study_level');
 
 //////Study Level Api
 
 Route::get('/study_level', 'StudyLevelController@index');
 Route::post('/study_level', 'StudyLevelController@store');
 Route::put('/study_level/{id}', 'StudyLevelController@update');
+
+//New Course
+
+Route::post('/new_course', 'NewCourseController@create');
+
 
 

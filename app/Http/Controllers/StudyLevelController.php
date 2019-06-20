@@ -11,7 +11,7 @@ class StudyLevelController extends Controller
     public function __construct(StudyLevel $model)
     {
         $this->model=$model;
-        $this->middleware('auth');
+//        $this->middleware('auth');
     }
 
     public function index()
@@ -26,8 +26,8 @@ class StudyLevelController extends Controller
             'title'=>'required|string',
 
         ]);
-        $study_level=$this->model->create($request->all());
-        return response()->json($study_level, 201);
+        $level =$this->model->create(request()->all());
+        return response()->json($level, 201);
     }
 
     public function update(Request $request, $id)
@@ -36,9 +36,9 @@ class StudyLevelController extends Controller
             'title'=>'sometimes|string',
 
         ]);
-        $level = $this->model::find($id);
+        $level = StudyLevel::find($id);
         if($level){
-            $level->update($request->all());
+            $level->update(request()->all());
             return response()->json($level);
         };
         return response()->json(false);
