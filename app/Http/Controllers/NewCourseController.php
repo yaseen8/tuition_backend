@@ -63,4 +63,26 @@ class NewCourseController extends Controller
         }
         return response()->json(false);
     }
+
+    public function update_course(Request $request, $id)
+    {
+        $course = NewCourse::find($id);
+        if($course)
+        {
+            $course->update(request()->all());
+            return response()->json($course, 200);
+        }
+        return response()->json('not found', 404);
+    }
+
+    public function update_fee(Request $request, $id)
+    {
+        $fee = CourseFee::find($id);
+        if($fee)
+        {
+            $fee->update(request()->all());
+            return response()->json($fee, 200);
+        }
+        return response()->json('not found', 404);
+    }
 }

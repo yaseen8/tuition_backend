@@ -19,6 +19,10 @@
 
 Route::post('/login', 'AuthController@login')->name('login');
 Route::get('/users/select_list', 'UserController@user_select_list');
+Route::get('/users/list', 'UserController@user_list');
+Route::post('/register', 'UserController@create');
+Route::put('/user/{id}', 'UserController@update');
+
 
 /////Courses
 
@@ -36,6 +40,15 @@ Route::put('/study_level/{id}', 'StudyLevelController@update');
 //New Course
 
 Route::post('/new_course', 'NewCourseController@create');
+Route::put('/update_course/{id}', 'NewCourseController@update_course');
+Route::put('/update_fee/{id}', 'NewCourseController@update_fee');
+
+//Book Course
+
+Route::post('/book_course', 'BookCourseController@book_course');
+Route::put('/update_payment_status/{id}', 'BookCourseController@update_payment_status');
+
+
 
 
 
