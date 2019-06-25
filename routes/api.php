@@ -42,6 +42,7 @@ Route::put('/study_level/{id}', 'StudyLevelController@update');
 Route::post('/new_course', 'NewCourseController@create');
 Route::put('/update_course/{id}', 'NewCourseController@update_course');
 Route::put('/update_fee/{id}', 'NewCourseController@update_fee');
+Route::get('/course_list', 'NewCourseController@course_list');
 
 //Book Course
 

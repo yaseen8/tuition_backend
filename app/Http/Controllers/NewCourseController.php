@@ -17,6 +17,15 @@ class NewCourseController extends Controller
 //        $this->middleware('auth');
     }
 
+    public function course_list(Request $request)
+    {
+        $staus = $request->input('status');
+        if($staus) {
+            $list = NewCourse::where('status', $staus)->get();
+            return response()->json($list, 200);
+        }
+    }
+
     public function create(Request $request)
     {
         $new_course = NewCourse::create(
