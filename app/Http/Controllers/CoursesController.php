@@ -11,7 +11,7 @@ class CoursesController extends Controller
     public function __construct(Courses $model)
     {
         $this->model=$model;
-//        $this->middleware('auth');
+       $this->middleware('auth',['except'=>['index','get_by_study_level']]);
     }
 
     public function index()

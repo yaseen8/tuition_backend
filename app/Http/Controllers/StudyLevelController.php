@@ -11,7 +11,7 @@ class StudyLevelController extends Controller
     public function __construct(StudyLevel $model)
     {
         $this->model=$model;
-//        $this->middleware('auth');
+       $this->middleware('auth',['except'=>['index']]);
     }
 
     public function index()
@@ -41,6 +41,6 @@ class StudyLevelController extends Controller
             $level->update(request()->all());
             return response()->json($level);
         };
-        return response()->json(false);
+        return response()->json('not found', 404);
     }
 }

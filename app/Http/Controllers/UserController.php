@@ -18,7 +18,7 @@ class UserController extends Controller
     public function __construct(User $model)
     {
         $this->model = $model;
-//        $this->middleware('auth');
+       $this->middleware('auth',['except'=>['check_username', 'create', 'check_email']]);
         $this->user =  Auth::user();
 
     }
@@ -43,6 +43,26 @@ class UserController extends Controller
             {
                 return response()->json($user, 201);
             }
+    }
+
+    public function check_username(Request $request)
+    {
+        $username = $request->input('username');
+        $user = User::where('username', '=', $username )->get();
+        if($user) {
+            return response()->json($user, 200);
+        }
+        return response()->json(false, 404);
+    }
+
+    public function check_email(Request $request)
+    {
+        $email = $request->input('email');
+        $check = User::where('email', '=', $email )->get();
+        if($check) {
+            return response()->json($check, 200);
+        }
+        return response()->json(false, 404);
     }
 
     public function loggedInUser()

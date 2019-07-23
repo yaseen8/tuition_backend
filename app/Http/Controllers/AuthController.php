@@ -56,7 +56,7 @@ class AuthController extends Controller
     {
         $token=$this->jwt->getToken();
         $this->jwt->invalidate($token);
-        return response()->json(['message' => 'Successfully logged out']);
+        return response()->json(['message' => 'Successfully logged out'], 200);
     }
 }
 

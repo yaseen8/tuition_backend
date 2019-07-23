@@ -14,16 +14,36 @@ class NewCourseController extends Controller
     public function __construct(NewCourse $model)
     {
         $this->model=$model;
-//        $this->middleware('auth');
+       $this->middleware('auth',['except'=>['course_list', 'get_course_detail']]);
     }
 
     public function course_list(Request $request)
     {
-        $staus = $request->input('status');
-        if($staus) {
-            $list = NewCourse::where('status', $staus)->get();
-            return response()->json($list, 200);
-        }
+        $status = $request->input('status');
+        $study_level = $request->input('study_level');
+        $course = $request->input('course_id');
+        $start_date = $request->input('start_date');
+            $list = NewCourse::with('course', 'teacher', 'course_fee', 'schedule')
+            ->when($status, function ($q) use ($status) {
+                return $q->where('status', $status);
+            })
+            ->when($study_level, function ($q) use ($study_level) {
+                $q->whereHas('course', function ($query) use($study_level) {
+                   return $query->where('fk_study_level_id', $study_level);
+                });
+            })
+            ->when($course, function ($q) use ($course) {
+                return $q->where('fk_course_id', $course);
+            })
+            ->when($start_date, function ($q) use ($start_date) {
+                return $q->whereBetween('start_date', [$start_date, date('Y-m-d')]);
+            })->get();
+        return response()->json($list, 200);
+        // }
+        // else {
+        //     $list = NewCourse::with('course', 'teacher', 'course_fee', 'schedule')->get();
+        //     return response()->json($list, 200);
+        // }
     }
 
     public function create(Request $request)
@@ -91,6 +111,16 @@ class NewCourseController extends Controller
         {
             $fee->update(request()->all());
             return response()->json($fee, 200);
+        }
+        return response()->json('not found', 404);
+    }
+
+    public function get_course_detail($id) 
+    {
+        $course = NewCourse::where('id', $id)->with('course', 'teacher', 'course_fee', 'schedule', 'teacher_detail')->first();
+        if($course)
+        {
+            return response()->json($course, 200);
         }
         return response()->json('not found', 404);
     }
